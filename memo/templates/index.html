@@ -1,28 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>메인 페이지</h1>
-    {{all_memo}} 
+{% extends 'base.html' %} <!--template 상속,확장하는 경우에는 extends를 먼저 작성해줍니다.-->
+{% load static %}  <!--static 요소들을 가져오기 위해서 load해줍니다.-->
+
+{%block title %} 
+index page
+{%endblock%}
+<!-- base.html에서 만들었던 title block부분에 각 페이지별로 다른 title을 입려해줄수 있습니다. -->
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<!-- 각 페이지별로 고유하게 들어갈 head tag를 입력해줍니다. -->
+{%endblock%}
+
+{% block contents %}
+<!-- 여기도 index.html 페이지에 고유하게 들어갈 내용을 block태그 안에 작성해주면 뼈대는 base.html을 가져오고
+안에 내용만 바꿔서 보여줄 수 있습니다. -->
+<h1>메인 페이지</h1>
+
+<img src="{% static 'image/혁이.jpg' %}" />
+<!-- static요소인 image를 쓰는 방법입니다. -->
+
+{% for i in all_memo %}
+
+<h1>{{i.title}}</h1>
+
+{% if i.pic %} <!--사진이 없으면 attribute 에러가뜨는데 사진이 있을때만 img tag를 쓰기 위한 if문(model에서 default값을 설정해줘도 된다)-->
+
+<p><img src="{{i.pic.url}}" alt="고양이사진"></p>
+<!-- media요소로, 기존에 가지고 있던 사진이 아닌 외부로 부터 받은 사진을 보여주는 부분 -->
+{%endif%}
+
+<p>{{i.desc}}</p>
+<p>{{i.created_at}}</p>
+<hr />
+<hr />
+{%endfor%}
 
 
-    {% for i in all_memo %} 
-      <h1> {{i.title}} </h1>
+<!-- <form method="POST">
+  {% csrf_token %}
+  <input type="text" name="mydata" />
+  <input type="submit" value="POST로 제출!" />
+</form> -->
 
-      <p> {{i.desc}} </p>
-      <p> {{i.created_at}} </p>
-      <hr><hr>
-    {%endfor%}
-
-
-    <form method="POST">
-      {% csrf_token %}
-      <input type="text" name="mydata" />
-      <input type="submit" value="POST로 제출!" />
-    </form>
-  </body>
-</html>
+{% endblock %}

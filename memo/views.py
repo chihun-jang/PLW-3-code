@@ -5,6 +5,7 @@ from .models import Memo
 def index(request):
     context = dict()
     # print(request.POST.get('mydata'),"@"*50)
+    request.POST.get('mydata')
     all_memo = Memo.objects.all()
     context['all_memo'] = all_memo
     return render(request, 'index.html',context)

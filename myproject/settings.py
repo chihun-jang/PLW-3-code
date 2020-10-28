@@ -55,7 +55,7 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,4 +118,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' #사용자가 STATIC파일을 요청할 URL
+STATIC_ROOT = BASE_DIR / 'static' #앱별로 흩어진 Static파일들을 해당 경로에 모아줌(python manage.py collectstatic)
+# 사용자는 STATIC_URL의 경로로 요청하게되고 우리는 그 장소에 static 요소들을 준비해둔다. 
+# 그래서 STATIC_URL 이랑 STATIC_ROOT의 위치는 일치시켜주자.
+# 개발할때는 runserver 명령어 실행시 내부적으로 collectstatic와 같은 동작을 수행함.
+# 따라서 STATIC_ROOT는 개발시에는 굳이 필요없지만 나중에 배포시에는 runserver명령어를 실행할게 아니므로, 명시적으로 collectstatic을 해줘야하고
+# 이를 위해서 STATIC_ROOT도 작성해줘야한다.
+
+STATICFILES_DIRS = [
+    BASE_DIR / "basestatic",
+]
+# 프로젝트 폴더 밑에 basestatic이라는 폴더를 하나 만들어주고 base.css를 추가적으로 작성해서 관리하고있습니다.
+# 해당 폴더는 새로 만들어 준 폴더이므로 STATIC_FILE을 관리하는 FINDER가 해당 폴더도 인지하고 모아줄 수 있게 등록을 해주는 과정입니다.
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# 여기서 BASE_DIR은 프로젝트 폴더를 의미합니다.
