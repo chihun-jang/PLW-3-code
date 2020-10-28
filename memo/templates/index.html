@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>메인 페이지</h1>
+    {{all_memo}} 
+
+
+    {% for i in all_memo %} 
+      <h1> {{i.title}} </h1>
+
+      <p> {{i.desc}} </p>
+      <p> {{i.created_at}} </p>
+      <hr><hr>
+    {%endfor%}
+
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="mydata" />
+      <input type="submit" value="POST로 제출!" />
+    </form>
+  </body>
+</html>
