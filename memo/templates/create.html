@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+<!-- base.html을 확장해서 글쓰기 페이지를 간단하게 구성했습니다. -->
+{% block contents %}
+<h1>글쓰기 페이지입니다.</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <!-- action을 생략하면 현재 URL요청을 다시보냄 -->
+
+    <!-- 우리의 글쓰기는 GET요청이 아닌 POST요청으로 보내줘야하고
+    enctype을 설정해줌으로써 file도 주고 받으며 저장할 수 있게 해줬습니다. -->
+
+
+    {% csrf_token %}
+    <!-- POST요청을 보낼때는 csrf_token도 같이 보내줘야하는데 Django에서 제공해주는 방법을 이용했습니다  -->
+    
+    <!-- 모델폼을 쓰지않으면 아래와 같이 input tag와 함께 attribute를 설정해줘야합니다 -->
+    <!-- <input type="text" name="title"/>
+    <input type="text" name="desc" />
+    <input type="file" name="pic" /> -->
+    
+    <!-- 모델폼을 쓰면 아래와 같이 간단하게 전체 form을 가져와서 쓸 수 있습니다.
+    여기서 as_p 옵션은 지금 잠시 깔끔하게 보이게 하기위해 사용한것으로 나중에는 사용하지 않을 예정입니다. -->
+    {{memoform.as_p}}
+    <input type="submit" value="작성"/>
+</form>
+{%endblock%}

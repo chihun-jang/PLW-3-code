@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-
     {%block title %}
-    <!-- 이부분에 tab에 나타나는 페이지 제목을 작성해줍니다. -->
     {%endblock%}
-
     </title>
+
+        <!-- 이부분에 tab에 나타나는 페이지 제목을 작성해줍니다. -->
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
     <!-- 이부분에 공통된 css나 head에 들어가야할 내용을 작성해줍니다.  -->
@@ -19,12 +18,24 @@
     {%endblock%}
 </head>
 <body>
-    <nav>글로벌네브바! <a href="{% url 'index' %}">홈으로</a> <a href="{% url 'second' %}"><second-page>second-page</second-page></a> </nav>
+    <nav>글로벌네브바! 
+        <a href="{% url 'index' %}">
+            <span>홈으로</span>
+        </a> 
+        <a href="{% url 'second' %}">
+            <span>second-page</span>
+        </a> 
+    
+    </nav>
     <!-- 모든페이지에 공통적으로 들어가야할 요소들 -->
 
 
     {% block contents %}
     <!-- 페이지별로 다르게 보일 content를 입력하는 block -->
     {% endblock %}
+
+    <footer>
+        푸터자리입니다.
+    </footer>
 </body>
 </html>
