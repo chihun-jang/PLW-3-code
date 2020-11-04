@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+<h1> NEW PAGE </h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{baboform.as_p}}
+    <button type="submit">메모 작성!</button>
+</form>
+
+
+{% endblock %}

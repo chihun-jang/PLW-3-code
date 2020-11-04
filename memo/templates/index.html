@@ -16,6 +16,11 @@ index page
 안에 내용만 바꿔서 보여줄 수 있습니다. -->
 <h1>메인 페이지</h1>
 
+<a href="{% url 'new' %}"> 
+  <h2>메모하기</h2>
+</a>
+
+
 <a href="{% url 'create' %}"><h2>글쓰기</h2></a>  
 <!-- 글쓰기 버튼을 생성했습니다. -->
 
@@ -24,7 +29,10 @@ index page
 
 {% for i in all_memo %}
 
-<h1>{{i.title}}</h1>
+<a href="{% url 'detail' i.id %}"> 
+  <!-- url 뒤에 i.id를 붙여서 id값을 특정 글의 식별자로 사용합니다. -->
+  <h1>{{i.title}}</h1> 
+</a>
 
 {% if i.pic %} <!--사진이 없으면 attribute 에러가뜨는데 사진이 있을때만 img tag를 쓰기 위한 if문(model에서 default값을 설정해줘도 된다)-->
 

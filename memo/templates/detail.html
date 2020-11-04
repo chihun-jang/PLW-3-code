@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+<!-- base를 extend하고 
+block을 이용해서 안의 내용을 바꿔줍니다. -->
+{% block contents %}
+<h1>상세페이지</h1>
+
+<a href="{% url 'update' one_memo.id %}">수정</a> 
+<!-- 각 글의 상세페이지에서 수정과 삭제버튼을 만들어 주었습니다. -->
+<a href="{% url 'delete' one_memo.id %}">삭제</a>
+
+
+<h2>제목 : {{one_memo.title}}</h2>
+<p>본문 : {{one_memo.desc}}</p>
+<p>작성일 : {{one_memo.created_at}}</p>
+{%endblock%}
