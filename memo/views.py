@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 # rendering 해준다는 의미인데, redirect는 해당 url요청을 다시 보내준다는 의미이다.
 # 따라서 상세히 말하자면 redirect는 context를 전달해 줄수 없다.
 from .models import Memo
-from .forms import MemoForm,BaboForm
+from .forms import MemoForm,BaboForm,CommentForm 
 
 
 # Create your views here.
@@ -65,8 +65,10 @@ def detail(request,detail_id):#우리가 url에서 설정한 path converter의 �
     context={}
     one_memo = Memo.objects.get(id=detail_id) #예를 들면 5번 id 글을 가져오겠다입니다.
 
-    context['one_memo'] = one_memo
 
+    context['one_memo'] = one_memo           
+    context['comment_form'] = CommentForm()      #위치는 상관없지만 댓글 입력창이 들어가는 곳으로 제일 적합한 곳이 detail template이라서 
+                                                # detail view에다가 commentForm을 같이 넘겨줍니다.
     return render(request, 'detail.html',context)
 
 def update(request,update_id): #글의 수정이라는 것은 특정한 글(id값 필요)을 수정(create와 유사)하는 것입니다.
@@ -93,3 +95,25 @@ def delete(request, delete_id):
     one_memo = Memo.objects.get(id=delete_id) #특정한 객체를 가져오고
     one_memo.delete() #해당 객체를 delete()메서드를 이용해서 삭제해줍니다.
     return redirect('index')
+
+
+def create_comment(request,memo_id):       # url의 뒤어 붙어 path converter로 같이 넘어오는 숫자 값을 emmo_id값으로 받아서 사용합니다.
+    context = dict()
+    # print("글 번호는 ? ", memo_id)
+
+    if request.method == "POST":      #댓글을 입력하면 POST요청이 일어나도록 하고
+        tmp_comment = CommentForm(request.POST)  #CRUD의 C와 유사하게 모델폼을 이용하고 
+        if tmp_comment.is_valid(): #유효성검사를 한다.
+            save_comment = tmp_comment.save(commit=False) #그런데 이때 바로 저장하는 것을 멈추고,
+                                    
+            save_comment.memo = Memo.objects.get(id = memo_id) # 해당 댓글이 달린 글의 정보를 memo_id로 받아와 해당 글자체. 를 들고와서 댓글의 메모부분에 저장해준다.
+            # save_comment.memo = memo_id 얘는 잘못된 애입니다. 숫자를 할당합니다.
+            save_comment.save()
+            return redirect('detail',memo_id) #만약 저장에 성공하면 redirect로 글 상세페이지로 돌아간다
+
+    return redirect('index')
+
+
+#여기성 우리가 바로 저장하는 것을 멈추고 몇번글인지를 댓글에 설정해주고 저장을 해주는데 그 이유는
+#사용자가 댓글을 작성할때 직접 몇번글인지를 설정해주는 것이 아니라, 자동으로 지정되기때문에
+# 이처럼 우리가 댓글을 저장하기 전에 어느 글에 달린 댓글인지를 나누어서 저장해주어야 하는 것이다.

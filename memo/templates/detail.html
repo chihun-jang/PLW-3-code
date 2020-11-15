@@ -12,4 +12,27 @@ block을 이용해서 안의 내용을 바꿔줍니다. -->
 <h2>제목 : {{one_memo.title}}</h2>
 <p>본문 : {{one_memo.desc}}</p>
 <p>작성일 : {{one_memo.created_at}}</p>
+
+
+<h3>댓글을 입력해주세요</h3>
+<form method="POST" action="{% url 'create_comment' one_memo.id %}"> 
+    <!-- 그냥 detail로 들어왔기에 detail로 다시금 action요청을 하는게 아니라 create_comment라는 새로운 action요청을 보낸다
+    이 액션으로 create_comment url요청이 전달되고 그러면 댓글 생성에 해당하는 view도 실행이 된다. -->
+    {% csrf_token %}
+    {{comment_form.desc}} 
+    <!-- {{comment_form}}만 작성해주게 되면 전체 modelform이 보이게 되고
+    위와같이 desc, title과 같은 특정 field 이름을 입력하면 해당 field의 인풋창만,
+    그리고 label을 보여주고싶으면 comment_form.desc.label과 같이 표기를 해줘야 label을 rendering해줄수 있다. -->
+    <button type="submit">제출</button>
+</form>
+
+<h4>댓글목록({{one_memo.comment_set.all|length}})</h4> 
+    <!-- 장고에서 기본적으로 제공해주는 template filter로 (| <-- enter 위에 자판) length외에도 많으므로 아는만큼 활용하자 -->
+<!-- Django template tag, built in, filter -->
+{% for i in one_memo.comment_set.all %}  
+ <!-- 우리가 comment라는 context를 따로 template에 전달해 주지 않아도 이처럼 특정 글을 참조하고 있는 댓글을 modelname_set의 형태로 불러올수있따.
+이는 약속되어있는 표기법이고 related_name이라는 model field의 옵션을 통해서 수정해줄수 있다. -->
+    <p>📌 {{i.desc}} - {{i.created_at}}</p>
+{% endfor %}
+
 {%endblock%}
