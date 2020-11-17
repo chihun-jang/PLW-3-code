@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+
+<h1>로그인폼</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <!-- Django에서 LoginView를 쓰면 registration/login.html이라는 template을 찾게되는데
+    이때 내부적으로 form의 이름으로 로그인 할수있는 form을 넘겨주므로 특별히 이름을 바꾸지않는 경우
+    해당 이름의 form을 들고와서 사용해 준다. -->
+
+    <input type="submit" value="로그인!" />
+</form>
+{% endblock %}

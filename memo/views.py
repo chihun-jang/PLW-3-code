@@ -19,7 +19,13 @@ def second(request):
     
     return render(request, 'second.html')
 
+from django.contrib.auth.decorators import login_required   #제일 위에 import해주는게 좋습니다.
+#decorator를 쓰기위해서 장고가 기본적으로 제공해주는 login_required를 ㄱ져와서 사용합니다
+# 이때 decorator는 함수위에 딱 붙여서 부가기능을 할 수 있는 것으로 우리는
+# 로그인한 사람만 사용할 수 있는 view의 기능을 만들기 위해 사용해 줬습니다.
 
+
+@login_required #이렇게 딱 붙여서 사용해 주면 됩니다.
 def create(request):
     context=dict() 
     context['memoform'] = MemoForm() #우리가 준비한 빈 modelform을 생성해서 memoform이란 이름으로 넘깁니다.

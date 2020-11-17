@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+
+<h1>회원가입 폼</h1>
+<form method="POST">
+    {% csrf_token %}
+    
+    {{userForm.as_p}}
+    <!-- 이는 우리가 views에서 signup을 만들때 context로 UserCreationForm을 만들어 넘겨주던 이름이다. -->
+
+    <input type="submit" value="회원가입!"/>
+</form>
+{% endblock %}

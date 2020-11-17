@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'memo',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -104,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko' #프로젝트의 언어셋팅을 한글로 바꿉니다.
 
 TIME_ZONE = 'UTC'
 
@@ -136,3 +137,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # 여기서 BASE_DIR은 프로젝트 폴더를 의미합니다.
+
+LOGIN_REDIRECT_URL = '/' #로그인 후 REDIRECT경로를 설정하는데
+                         #따로 설정하지 않으면 Profile페이지를 찾아갑니다.
+LOGOUT_REDIRECT_URL = '/'

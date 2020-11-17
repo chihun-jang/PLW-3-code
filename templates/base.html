@@ -25,7 +25,21 @@
         <a href="{% url 'second' %}">
             <span>second-page</span>
         </a> 
-    
+
+       <!-- 아래 코드는 만약 사용자가 인가받은 사람이라면 -->
+        {% if user.is_authenticated %}
+        <!-- 로그인을 한 사용자이기때문에 유저를 보여주고 로그아웃을 보여줍니다. -->
+        <span>
+            사용자({{user}})
+        </span>
+        <a href="{% url 'logout' %}">로그아웃</a>
+        {%else%}
+        <!-- 반대로 인가받지 않은 사용자라면 회원가입과 로그인을 유도합니다. -->
+            <a href="{% url 'signup' %}">회원가입</a>
+            <a href="{% url 'login' %}">로그인</a>
+        {%endif%}
+
+
     </nav>
     <!-- 모든페이지에 공통적으로 들어가야할 요소들 -->
 

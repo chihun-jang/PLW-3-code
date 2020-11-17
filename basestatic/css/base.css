@@ -5,6 +5,7 @@ a,a:visited{
 *{
     box-sizing: border-box;
     /* 전체 tag들에 대해서 box-sizing 을 border-box로 설정하면; */
+    text-decoration: none; /*글자의 밑줄을 제거하는 속성입니다.*/
 }
 body{
     background-color: #577194;
