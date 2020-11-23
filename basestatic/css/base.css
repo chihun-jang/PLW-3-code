@@ -1,47 +1,60 @@
-a,a:visited{
-    color:white;
-    /* a tag 의 파란색 색깔을 white로 바꿔주기 위함입니다. */
+a,
+a:visited {
+  color: white;
+  /* a tag 의 파란색 색깔을 white로 바꿔주기 위함입니다. */
 }
-*{
-    box-sizing: border-box;
-    /* 전체 tag들에 대해서 box-sizing 을 border-box로 설정하면; */
-    text-decoration: none; /*글자의 밑줄을 제거하는 속성입니다.*/
+* {
+  box-sizing: border-box;
+  /* 전체 tag들에 대해서 box-sizing 을 border-box로 설정하면; */
+  text-decoration: none; /*글자의 밑줄을 제거하는 속성입니다.*/
 }
-body{
-    background-color: #577194;
-    
-    /* 최소 높이를 우리가 보는 화면기준 X2배만큼 설정해줬습니다(nav바의 움직임을 보기위해서 설정했습니다) */
-    min-height: 200vh;
-    margin:0;
-    /* 기본 body에 margin이 들어가 있으므로  */
+body {
+  background-color: #577194;
 
-    position: relative;
-    /* footer위치를 잡아주기위해서 body의 position을 relative로 설정해줬습니다. */
-}
+  /* 최소 높이를 우리가 보는 화면기준 X2배만큼 설정해줬습니다(nav바의 움직임을 보기위해서 설정했습니다) */
+  min-height: 200vh;
+  margin: 0;
+  /* 기본 body에 margin이 들어가 있으므로  */
 
-nav{
-    background-color: #1e2a3a;
-    color:white;
-
-    /* 네브바의 position을 sticky로 두고 top:0로 둔다면 상단에 고정된 nav바를 만들 수 있다. */
-    position: sticky;
-    top:0px;
-
-    width:100%;
-    height: 60px;
-
-    padding:10px;
-    z-index:5;
+  position: relative;
+  /* footer위치를 잡아주기위해서 body의 position을 relative로 설정해줬습니다. */
 }
 
-footer{
-    /* body내를 기준으로 bottom에 붙여놔야하므로 absolute positon을 줍니다. */
-    bottom:0;
+nav {
+  background-color: #1e2a3a;
+  color: white;
 
-    position: absolute;
-    height: 100px;
-    width:100%;
-    background-color: #0c1118;
-    color:white;
-    padding:20px;
+  /* 네브바의 position을 sticky로 두고 top:0로 둔다면 상단에 고정된 nav바를 만들 수 있다. */
+  position: sticky;
+  top: 0px;
+
+  width: 100%;
+  height: 60px;
+
+  padding: 10px;
+  z-index: 5;
 }
+
+footer {
+  /* body내를 기준으로 bottom에 붙여놔야하므로 absolute positon을 줍니다. */
+  bottom: 0;
+
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  background-color: #0c1118;
+  color: white;
+  padding: 20px;
+}
+
+.kakao-btn {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 10px;
+  font-weight: 900;
+  background-color: #fae300;
+  color: #3c1e1e !important;
+  cursor: pointer;
+}
+/* 카카오 로그인 기능을 구현하기 위해서 kakao style의 버튼을 간단하게 만들어 보았습니다. */

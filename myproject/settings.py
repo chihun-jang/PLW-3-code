@@ -37,6 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  #현재 우리 사이트 관련된 정보를 다루기 위해서 추가해줬습니다.
+    
+    #Django 소셜 로그인 관련 App
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    #카카오(다른 서비스의 소셜로그인 사용시 다른 서비스 등록해줘야함.)
+    'allauth.socialaccount.providers.kakao',
+
     'memo',
     'accounts',
 ]
@@ -68,6 +78,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
@@ -141,3 +152,21 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_REDIRECT_URL = '/' #로그인 후 REDIRECT경로를 설정하는데
                          #따로 설정하지 않으면 Profile페이지를 찾아갑니다.
 LOGOUT_REDIRECT_URL = '/'
+
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+#기존 Django model과의 호환을 위해서 설정해준다.
+
+
+
+SITE_ID = 1   #admin page에서 '사이트틀' 부분에서 example.com을 수정해서 우리의 domain주소로 바꿔 줬기때문에
+              #SITE_ID가 1번이고, 만약에 admin site에서 사이트틀 내부의 정보를 지우고 추가 생성해준거라면 추가생성한 정보의 ID값과 일치시켜줘야한다.
+

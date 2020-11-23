@@ -1,4 +1,7 @@
 {%load static%}
+{% load socialaccount %} 
+<!-- socialaccount router(링크, 경로)를 사용해주기 위한 load입니다. -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,11 +35,28 @@
         <span>
             사용자({{user}})
         </span>
+
+      
+        {% get_social_accounts user as accounts %}
+        <!-- 인증 받은 사용자의 경우 accounts라는 이름으로 user를 social 계정을 들고옵니다. -->
+        {% for i in accounts.kakao %}
+        <!-- 현재는 kakao provider로만 회원가입을 진행하고 있으므로 kakao에서 소셜 유저 계정을 하나하나 들고옵니다 -->
+        <!-- {{i.extra_data.kakao_account}} -->
+        {{i.extra_data.kakao_account.gender}} 
+        <!-- 여기서 보고싶은 것은 개인정보 제공 동의 항목을 통해서 들고왔던 
+            extra_data부분이므로 object(소셜계정)의 extra_data로 접근하여 추가 정보를 가져옵니다. -->
+        {{i.extra_data.kakao_account.email}}
+
+        {%endfor%}
+
         <a href="{% url 'logout' %}">로그아웃</a>
         {%else%}
         <!-- 반대로 인가받지 않은 사용자라면 회원가입과 로그인을 유도합니다. -->
             <a href="{% url 'signup' %}">회원가입</a>
             <a href="{% url 'login' %}">로그인</a>
+            <a class="kakao-btn" href="{% provider_login_url 'kakao' %}">K</a>
+            <!-- django-allauth에서 제공해주는 kakao login url을 provider_login_url이라는 것을 이용해서
+            손쉽게 구현해 줬습니다. -->
         {%endif%}
 
 
