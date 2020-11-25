@@ -10,7 +10,12 @@ block을 이용해서 안의 내용을 바꿔줍니다. -->
 
 
 <h2>제목 : {{one_memo.title}}</h2>
-<p>본문 : {{one_memo.desc}}</p>
+
+    {% autoescape off %}
+        <p>본문 : {{one_memo.desc}}</p>
+    {% endautoescape %}
+
+<p>본문 : {{one_memo.desc|safe}}</p>
 <p>작성일 : {{one_memo.created_at}}</p>
 
 
@@ -19,7 +24,20 @@ block을 이용해서 안의 내용을 바꿔줍니다. -->
     <!-- 그냥 detail로 들어왔기에 detail로 다시금 action요청을 하는게 아니라 create_comment라는 새로운 action요청을 보낸다
     이 액션으로 create_comment url요청이 전달되고 그러면 댓글 생성에 해당하는 view도 실행이 된다. -->
     {% csrf_token %}
-    {{comment_form.desc}} 
+
+
+
+
+    {% autoescape off %}
+    {{comment_form.desc}}
+    {% endautoescape %}
+    
+    <!-- escape라는 말은 html 태그로 적용하는게 아니라 텍스트로 보이게 해주겠다라는 뜻이므로
+    이를 off로 해준다는 것은 escape, 즉 탈출하지 못하게 한다는 말이고 summernote로 작성한 style부분이 html로 변환되어 우리에게 보인다라는 의미입니다.-->
+    
+    
+    
+    
     <!-- {{comment_form}}만 작성해주게 되면 전체 modelform이 보이게 되고
     위와같이 desc, title과 같은 특정 field 이름을 입력하면 해당 field의 인풋창만,
     그리고 label을 보여주고싶으면 comment_form.desc.label과 같이 표기를 해줘야 label을 rendering해줄수 있다. -->

@@ -24,6 +24,8 @@ urlpatterns = [
     path('memo/',include('memo.urls')),  #memo앱과 관련된 url은 memo 앱 밑에 있는 urls.py에서 관리해줍시다.
     path('accounts/',include('accounts.urls')), #accounts App을 만들었으니 accounts관련된 URL요청은 해당 urls.py로 보내줍니다.
     path('accounts/', include('allauth.urls')), #allauth library에서 제공해주는 url경로를 사용하기 위한 path설정
+    path('summernote/', include('django_summernote.urls')),  
+    #summernote를 사용하기 위해 url을 추가해 줬습니다.
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) 
 # 쉽게 이해를 해보자면 기존에 있는 url규칙들에 새로운 규칙을 추가해주는건데
